@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react'
 import {movieContext} from '../App'
 
 const Search = () => {
-    var {movies,searchedArr,setSearchedArr,setNotFound} =useContext(movieContext)
+    var {movies,searchedArr,setSearchedArr,setNotFound,notFound} =useContext(movieContext)
     var searchRef = useRef<HTMLInputElement>(null)
     
     // search function 
@@ -26,6 +26,7 @@ const Search = () => {
                 else{
                     if(setNotFound!==null){
                         setNotFound(flag)
+                        throw new Error('Movies not Found')
                     }
                 }
             }

@@ -12,10 +12,11 @@ type context ={
   setMovies:React.Dispatch<React.SetStateAction<movieData[]>>|null
   searchedArr:movieData[]
   setSearchedArr:React.Dispatch<React.SetStateAction<movieData[]>>|null
+  notFound:boolean
   setNotFound:React.Dispatch<React.SetStateAction<boolean>>|null
 }
 
-export const movieContext = createContext<context>({movies:[],setMovies:null,searchedArr:[],setSearchedArr:null,setNotFound: null,})
+export const movieContext = createContext<context>({movies:[],setMovies:null,searchedArr:[],setSearchedArr:null,setNotFound: null,notFound:true})
 
 var defaultMovies = [
   {name:'Harry potter',rate:'34',duration:'3h',found:false},
@@ -37,7 +38,7 @@ function App() {
         <label className='text-success fw-bold fs-3 me-auto ms-3'>Favorite Movie App</label>
       </nav>
       <div className='col-12 d-flex flex-row'>
-        <movieContext.Provider value={{movies:movies,setMovies:setMovies,searchedArr:searchedArr,setSearchedArr:setSearchedArr,setNotFound:setNotFound,}}>
+        <movieContext.Provider value={{movies:movies,setMovies:setMovies,searchedArr:searchedArr,setSearchedArr:setSearchedArr,setNotFound:setNotFound,notFound:notFound}}>
           <ErrorBoundary FallbackComponent={ErrorComponent} onReset={()=>{setNotFound(false)}}>
           <MovieForm/>
           <div className='col-6 p-2 d-flex flex-column'>
