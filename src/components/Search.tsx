@@ -2,33 +2,48 @@ import React, { useContext, useRef } from 'react'
 import {movieContext} from '../App'
 
 const Search = () => {
-    const movies =useContext(movieContext)
+    var {movies,searchedArr,setSearchedArr,setNotFound} =useContext(movieContext)
     var searchRef = useRef<HTMLInputElement>(null)
-
+    
+    // search function 
     const search=()=>{
         if(searchRef.current!==null){
-            movies.searchedArr=[]
-            if(searchRef.current.value.length>1){
+            searchedArr=[]
+            if(searchRef.current.value.length > 1){
+                var flag:boolean=false
                 var search = searchRef.current.value
-                movies.movies.map((item)=>{
+                movies.map((item)=>{
                     if(item.name.slice(0,search.length).toLowerCase()==search.toLowerCase()){
-                        movies.searchedArr.push(item)
-                    }
-                    else{
-                        
+                        searchedArr.push(item)
+                        flag=true
                     }
                 })
+                if(flag){
+                    if(setNotFound!==null){
+                    setNotFound(flag)
+                    }
+                }
+                else{
+                    if(setNotFound!==null){
+                        setNotFound(flag)
+                    }
+                }
             }
-            if(movies.setSearchedArr!==null){
-                movies.setSearchedArr([...movies.searchedArr])
+            if(searchRef.current.value.length==0){
+                if(setNotFound!==null){
+                setNotFound(true)
+                }
+            }
+            if(setSearchedArr!==null){
+                setSearchedArr([...searchedArr])
             }
         }
     }
 
     return (
-      <div className='col-10 mt-5 shadow p-3 bg-light rounded'>
-          <input className="form-control bg-success-subtle" onChange={search} ref={searchRef} placeholder='Search Your Favorite movie...'/>
-      </div>
+    <div className='col-10 mt-5 shadow p-3 bg-light rounded'>
+        <input className="form-control bg-success-subtle" onChange={search} ref={searchRef} placeholder='Search Your Favorite movie...'/>
+    </div>
     )
 }
 

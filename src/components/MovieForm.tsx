@@ -2,12 +2,13 @@ import React, { useContext, useRef } from 'react'
 import {movieContext} from '../App'
 
 const MovieForm = () => {
-    const movies =useContext(movieContext)
+    const {movies,setMovies} =useContext(movieContext)
     
     var nameRef= useRef<HTMLInputElement>(null)
     var rateRef = useRef<HTMLInputElement>(null)
     var durRef = useRef<HTMLInputElement>(null)
 
+    // function adds new movie to list
     const addMovie=(e:React.SyntheticEvent)=>{
         e.preventDefault()
         if(nameRef.current!==null && rateRef.current!==null && durRef.current!==null){
@@ -23,9 +24,9 @@ const MovieForm = () => {
                     else{
                         obj ={name:nameRef.current.value,rate:rateRef.current.value,duration:durRef.current.value}
                     }
-                    movies.movies.push(obj)
-                    if(movies.setMovies!==null){
-                        movies.setMovies([...movies.movies])
+                    movies.push(obj)
+                    if(setMovies!==null){
+                        setMovies([...movies])
                     }
                 }
                 else{
